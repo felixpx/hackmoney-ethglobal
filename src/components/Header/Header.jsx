@@ -1,6 +1,7 @@
 import Image from 'next/image'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
+import { useChain } from 'react-moralis'
 import { useMoralis } from 'react-moralis'
 import NavbarItem from './NavbarItem'
 import { LogoutIcon } from '@heroicons/react/outline'
@@ -8,11 +9,22 @@ import { LogoutIcon } from '@heroicons/react/outline'
 export default function Header() {
   const router = useRouter()
 
-  const { authenticate, isAuthenticated, user, logout } = useMoralis()
+  const {
+    authenticate,
+    isAuthenticated,
+    user,
+    logout,
+    isWeb3Enabled,
+    enableWeb3,
+  } = useMoralis()
+  const { chainId, switchNetwork } = useChain()
 
   const [clippedAddress, setClippedAddress] = useState('')
 
+  const [wrongNetwork, setWrongNetwork] = useState('')
+
   useEffect(() => {
+    if (!isWeb3Enabled) enableWeb3()
     if (isAuthenticated && user) {
       setClippedAddress(
         user.get('ethAddress').slice(0, 4).concat('...') +
@@ -21,6 +33,12 @@ export default function Header() {
     } else {
       setClippedAddress('Not authenticated')
     }
+  }, [])
+
+  useEffect(() => {
+    if (chainId != '0x13881') {
+      setWrongNetwork(true)
+    } else setWrongNetwork(false)
   }, [])
 
   // authentication & wallet connect
@@ -34,6 +52,11 @@ export default function Header() {
     //       console.log(error)
     //     })
     // }
+  }
+  async function networkChange() {
+    await switchNetwork('0x13881').then(() => {
+      setWrongNetwork(false)
+    })
   }
 
   return (
@@ -84,14 +107,28 @@ export default function Header() {
         <div className="cursor-pointer rounded-full bg-[#5653E2] p-1.5 px-2 text-sm font-medium tracking-wide text-white">
           {isAuthenticated ? (
             <div className="m-1 flex flex-row items-center justify-evenly space-x-2 text-xs">
-              <div className="whitespace-nowrap text-xs">6,222.67 MIRA</div>
+              <div
+                className={`whitespace-nowrap ${
+                  wrongNetwork ? 'font-bold text-[#D86972]' : ''
+                } text-xs`}
+                onClick={networkChange}
+              >
+                {wrongNetwork ? 'Switch Network!' : ' 6,222.67 MIRA'}
+              </div>
               <div className="text-[#827FE5] ">
                 <LogoutIcon
                   className="h-5 hover:text-[#D86972]"
                   onClick={logout}
                 />
               </div>
-              <div className="text-black">{clippedAddress} </div>
+              <div
+                className="text-black"
+                onClick={() =>
+                  navigator.clipboard.writeText(user.get('ethAddress'))
+                }
+              >
+                {clippedAddress}{' '}
+              </div>
             </div>
           ) : (
             <div
