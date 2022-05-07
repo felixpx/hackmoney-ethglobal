@@ -10,7 +10,7 @@ const Home: NextPage = () => {
     <div className="flex min-h-screen flex-col items-center justify-center">
       <Head>
         <title>MIRA | Dashboard</title>
-        <link rel="icon" href="/favicon.ico" />
+        <link rel="icon" href="/mira-prp.png" className="rounded-full" />
       </Head>
 
       <Header />

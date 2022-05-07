@@ -62,7 +62,9 @@ export default function Header() {
   return (
     <header className="absolute top-0 flex h-16 w-full flex-row items-center justify-between px-8">
       {/* LOGO */}
-      <div className="w-2/12">MIRA DAO</div>
+      <div className="w-2/12">
+        <Image src={'/mira-prp.png'} width={40} height={40} />
+      </div>
       {/* <Image /> */}
 
       {/* NAV BAR */}
