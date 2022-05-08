@@ -24,7 +24,7 @@ export default function Deposit() {
       <div className="flex h-16 w-full flex-row items-center justify-between">
         <p className="-mt-2 text-2xl font-bold">Climate Regeneration</p>
         <div className="flex items-center space-x-2">
-          <Image src={'/usdc-logo.png'} height={25} width={25} />
+          <Image src={'/mira-prp.png'} height={25} width={25} />
 
           <p className="text-sm font-semibold">REFI</p>
         </div>

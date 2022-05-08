@@ -36,7 +36,7 @@ export default function Header() {
   }, [])
 
   useEffect(() => {
-    if (chainId != '0x13881') {
+    if (chainId != '0x89') {
       setWrongNetwork(true)
     } else setWrongNetwork(false)
   }, [])
@@ -54,7 +54,7 @@ export default function Header() {
     // }
   }
   async function networkChange() {
-    await switchNetwork('0x13881').then(() => {
+    await switchNetwork('0x89').then(() => {
       setWrongNetwork(false)
     })
   }
@@ -91,7 +91,7 @@ export default function Header() {
           }`}
           onClick={() => router.push('/mira')}
         >
-          <NavbarItem title={'MIRA'} />
+          <NavbarItem title={'DAO'} />
         </div>
 
         <div

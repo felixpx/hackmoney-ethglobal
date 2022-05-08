@@ -10,7 +10,7 @@ export default function Deposit() {
       <div className="flex h-16 w-full flex-row items-center justify-between">
         <p className="text-3xl font-bold">500.00</p>
         <div className="flex items-center space-x-2">
-          <Image src={'/usdc-logo.png'} height={25} width={25} />
+          <Image src={'/mira-prp.png'} height={25} width={25} />
           <p className="text-sm font-semibold">MIRA</p>
         </div>
       </div>
