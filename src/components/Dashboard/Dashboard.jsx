@@ -10,7 +10,7 @@ export default function Dashboard() {
         Statistics
       </p>
 
-      <div className="z-50 grid w-full grid-cols-3 content-center justify-items-center lg:w-9/12">
+      <div className=" grid w-full grid-cols-3 content-center justify-items-center lg:w-9/12">
         <DashcardTwo
           title={'Treasury Value'}
           value={'2,636,875 USDC'}
@@ -31,7 +31,7 @@ export default function Dashboard() {
       <p className="bg-gradient-to-r from-[#5653E2] via-[#D77968] to-[#D86972] bg-clip-text text-2xl font-semibold tracking-wide text-transparent ">
         My Page
       </p>
-      <div className="z-50 grid w-full grid-cols-3 content-center justify-items-center lg:w-9/12">
+      <div className="grid w-full grid-cols-3 content-center justify-items-center lg:w-9/12">
         <DashcardOne
           title={'Rewards APY'}
           value={'16.82%'}
