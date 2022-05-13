@@ -13,7 +13,7 @@ import CoinbaseWalletSDK from '@coinbase/wallet-sdk'
 export default function Header() {
   const router = useRouter()
 
-  const { isAuthenticated, user, logout, isWeb3Enabled, enableWeb3 } =
+  const { isAuthenticated, user, Moralis, logout, isWeb3Enabled, enableWeb3 } =
     useMoralis()
   const { chainId, switchNetwork } = useChain()
 
@@ -21,17 +21,18 @@ export default function Header() {
 
   const [wrongNetwork, setWrongNetwork] = useState('')
 
-  // useEffect(() => {
-  //   if (!isWeb3Enabled) enableWeb3()
-  //   if (isAuthenticated && user) {
-  //     setClippedAddress(
-  //       user.get('ethAddress').slice(0, 4).concat('...') +
-  //         user.get('ethAddress').slice(38, 42)
-  //     )
-  //   } else {
-  //     setClippedAddress('Not authenticated')
-  //   }
-  // }, [])
+  const [isMiraAuth, setIsMiraAuth] = useState()
+
+  useEffect(() => {
+    if (isMiraAuth && user) {
+      setClippedAddress(
+        user.get('ethAddress').slice(0, 4).concat('...') +
+          user.get('ethAddress').slice(38, 42)
+      )
+    } else {
+      setClippedAddress('Not authenticated')
+    }
+  }, [])
 
   useEffect(() => {
     if (chainId != '0x89') {
@@ -82,10 +83,14 @@ export default function Header() {
     const instance = await web3Modal.connect()
 
     const provider = new ethers.providers.Web3Provider(instance)
-    const signer = provider.getSigner()
+    // const signer = provider.getSigner()
+    Moralis.authenticate({ connector: provider })
+    // Moralis.authenticate()
+    setIsMiraAuth(true)
   }
 
   async function networkChange() {
+    // Moralis.authenticate()
     await switchNetwork('0x89').then(() => {
       setWrongNetwork(false)
     })
@@ -139,7 +144,7 @@ export default function Header() {
       {/*  WALLET */}
       <div className="w-2/12">
         <div className="cursor-pointer rounded-full bg-[#5653E2] p-1.5 px-2 text-sm font-medium tracking-wide text-white">
-          {isAuthenticated ? (
+          {isMiraAuth ? (
             <div className="m-1 flex flex-row items-center justify-evenly space-x-2 text-xs">
               <div
                 className={`whitespace-nowrap ${
