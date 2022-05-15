@@ -9,7 +9,7 @@ import { ethers } from 'ethers'
 import Web3Modal from 'web3modal'
 import WalletConnectProvider from '@walletconnect/web3-provider'
 import CoinbaseWalletSDK from '@coinbase/wallet-sdk'
-
+import Web3ModalConnector from './Web3ModalConnector'
 export default function Header() {
   const router = useRouter()
 
@@ -80,11 +80,12 @@ export default function Header() {
       providerOptions, // required
     })
 
-    const instance = await web3Modal.connect()
+   // const instance = await web3Modal.connect()
 
-    const provider = new ethers.providers.Web3Provider(instance)
+   // const provider = new ethers.providers.Web3Provider(instance)
     // const signer = provider.getSigner()
-    Moralis.authenticate({ connector: provider })
+    const w3 = new Web3ModalConnector(web3Modal); 
+    Moralis.authenticate({ connector: Web3ModalConnector,web3Modal:web3Modal })
     // Moralis.authenticate()
     setIsMiraAuth(true)
   }
