@@ -1,4 +1,4 @@
-export const MiraAddress = ''
+export const MiraAddress = '0x651f327781273265CE3b2AfDc941Fd3DaEe8F58D'
 export const MiraABI = [
   'function deposit(uint256 fundId, uint256 _amount)',
   'function withdraw(uint256 fundId,uint256 _amount)',
