@@ -11,6 +11,12 @@ export default function Deposit() {
     const web3Provider = await Moralis.enableWeb3()
     const ethers = Moralis.web3Library
 
+    const contractUSDC = new ethers.Contract(
+      USDCAddress,
+      USDCABI,
+      web3Provider.getSigner()
+    )
+
     const contract = new ethers.Contract(
       MiraAddress,
       MiraABI,
@@ -21,15 +27,17 @@ export default function Deposit() {
       document.getElementById('depositAmount').value
     )
 
-    contract.deposit('1', depositAmount).then((result) => {
-      alert('deposit successfull!')
-    })
+    contractUSDC
+      .approve(user.get('ethAddress'), depositAmount)
+      .then(
+        contract.deposit('0', depositAmount).then(alert('deposit successful!'))
+      )
   }
 
   return (
     <div className="m-2 flex w-11/12 flex-col justify-between rounded-xl bg-[#171717] p-8 px-16 text-base font-bold text-white shadow-lg lg:w-4/12">
       <button className="mb-4 flex w-3/12 flex-row items-center justify-between rounded-full border-2 border-white bg-transparent p-1 px-4 text-sm">
-        Deposit <ChevronDownIcon className="h-5" />
+        Deposit
       </button>
       <div className="flex h-16 w-full flex-row items-center justify-between">
         <input

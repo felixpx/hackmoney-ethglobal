@@ -1,6 +1,5 @@
-import { ArrowCircleDownIcon, ChevronDownIcon } from '@heroicons/react/outline'
 import Image from 'next/image'
-import { USDCAddress, USDCABI } from '../../contracts/USDCContract'
+import { MiraUSDCAddress, MiraUSDCABI } from '../../contracts/MiraUSDC'
 import { MiraAddress, MiraABI } from '../../contracts/MiraContract'
 import { useMoralis } from 'react-moralis'
 
@@ -11,19 +10,27 @@ export default function Deposit() {
     const web3Provider = await Moralis.enableWeb3()
     const ethers = Moralis.web3Library
 
+    const MiraUSDCContract = new ethers.Contract(
+      MiraUSDCAddress,
+      MiraUSDCABI,
+      web3Provider.getSigner()
+    )
+
     const contract = new ethers.Contract(
       MiraAddress,
       MiraABI,
       web3Provider.getSigner()
     )
 
-    const depositAmount = ethers.utils.parseEther(
+    const withdrawAmount = ethers.utils.parseEther(
       document.getElementById('withdrawAmount').value
     )
 
-    contract.deposit('1', depositAmount).then((result) => {
-      alert('withdrawal successfull!')
-    })
+    MiraUSDCContract.approve('0', withdrawAmount).then(
+      contract
+        .withdraw('0', withdrawAmount)
+        .then(alert('withdrawal successfull!'))
+    )
   }
 
   return (

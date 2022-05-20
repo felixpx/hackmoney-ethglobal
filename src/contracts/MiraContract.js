@@ -8,3 +8,6 @@ export const MiraABI = [
   'function claimRewards() external',
   'function compoundRewards(uint256 fundId)',
 ]
+
+// MIRA TOKEN ADDRESS 0x1187a6CD89bE874Da19097172b4f6188Cb105bB3
+// MIRA USDC ADDRESS 0x8acB946047BeB9E244635FFeA9a3540aefA4a63C

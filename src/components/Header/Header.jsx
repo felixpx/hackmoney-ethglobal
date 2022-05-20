@@ -10,6 +10,7 @@ import Web3Modal from 'web3modal'
 import WalletConnectProvider from '@walletconnect/web3-provider'
 import CoinbaseWalletSDK from '@coinbase/wallet-sdk'
 import Web3ModalConnector from './Web3ModalConnector'
+
 export default function Header() {
   const router = useRouter()
 
@@ -21,10 +22,9 @@ export default function Header() {
 
   const [wrongNetwork, setWrongNetwork] = useState('')
 
-  const [isMiraAuth, setIsMiraAuth] = useState()
-
   useEffect(() => {
-    if (isMiraAuth && user) {
+    if (!isWeb3Enabled) enableWeb3
+    if (isAuthenticated && user) {
       setClippedAddress(
         user.get('ethAddress').slice(0, 4).concat('...') +
           user.get('ethAddress').slice(38, 42)
@@ -35,6 +35,8 @@ export default function Header() {
   }, [])
 
   useEffect(() => {
+    if (!isWeb3Enabled) enableWeb3
+
     if (chainId != '0x89') {
       setWrongNetwork(true)
     } else setWrongNetwork(false)
@@ -90,7 +92,6 @@ export default function Header() {
       web3Modal: web3Modal,
     })
     // Moralis.authenticate()
-    setIsMiraAuth(true)
   }
 
   async function networkChange() {
@@ -148,7 +149,7 @@ export default function Header() {
       {/*  WALLET */}
       <div className="w-2/12">
         <div className="cursor-pointer rounded-full bg-[#5653E2] p-1.5 px-2 text-sm font-medium tracking-wide text-white">
-          {isMiraAuth ? (
+          {isAuthenticated ? (
             <div className="m-1 flex flex-row items-center justify-evenly space-x-2 text-xs">
               <div
                 className={`whitespace-nowrap ${
