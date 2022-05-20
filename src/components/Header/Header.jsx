@@ -80,12 +80,15 @@ export default function Header() {
       providerOptions, // required
     })
 
-   // const instance = await web3Modal.connect()
+    // const instance = await web3Modal.connect()
 
-   // const provider = new ethers.providers.Web3Provider(instance)
+    // const provider = new ethers.providers.Web3Provider(instance)
     // const signer = provider.getSigner()
-    const w3 = new Web3ModalConnector(web3Modal); 
-    Moralis.authenticate({ connector: Web3ModalConnector,web3Modal:web3Modal })
+    const w3 = new Web3ModalConnector(web3Modal)
+    Moralis.authenticate({
+      connector: Web3ModalConnector,
+      web3Modal: web3Modal,
+    })
     // Moralis.authenticate()
     setIsMiraAuth(true)
   }
@@ -101,7 +104,7 @@ export default function Header() {
     <header className="absolute top-0 flex h-16 w-full flex-row items-center justify-between px-8">
       {/* LOGO */}
       <div className="w-2/12">
-        <Image src={'/mira-prp.png'} width={40} height={40} />
+        <Image src={'/miranew.png'} width={40} height={40} />
       </div>
       {/* <Image /> */}
 

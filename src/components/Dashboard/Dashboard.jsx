@@ -1,7 +1,8 @@
 import DashcardMid from './DashcardMid'
 import DashcardButton from './DashcardButton'
-import DashcardOne from './DashcardOne'
+import DashcardDepWith from './DashcardDepWith'
 import DashcardTwo from './DashcardTwo'
+import Dashcard2Button from './Dashcard2Button'
 
 export default function Dashboard() {
   return (
@@ -32,17 +33,21 @@ export default function Dashboard() {
         My Page
       </p>
       <div className="grid w-full grid-cols-3 content-center justify-items-center lg:w-9/12">
-        <DashcardOne
+        {/* <DashcardOne
           title={'Rewards APY'}
           value={'16.82%'}
           rew1={'12% USDC'}
           rew2={'2% MIRA'}
           info={'How is this calculated?'}
+        /> */}
+        <Dashcard2Button
+          title={'mUSDC Rewards'}
+          value={'2896'}
+          info={'Average Rewards (daily)'}
         />
-        <DashcardMid
+        <DashcardDepWith
           title={'Your mUSDC Balance'}
           value={'11,542.86 mUSDC'}
-          info={'ROI (Daily) 3.08 mUSDC'}
         />
         <DashcardButton title={'Current MIRA Rewards'} value={'510.96 MIRA'} />
       </div>

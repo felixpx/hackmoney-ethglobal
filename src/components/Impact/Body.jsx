@@ -4,7 +4,7 @@ export default function Body() {
   return (
     <div className="mt-48 flex w-full flex-col items-center">
       <Fund
-        image={'/usdc-logo.png'}
+        image={'/refi.png'}
         title={'Refi Fund'}
         description={
           'The ReFi Fund supports projects and organizations building solutions for climate regeneration.'
