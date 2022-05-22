@@ -37,7 +37,7 @@ export default function Header() {
   useEffect(() => {
     if (!isWeb3Enabled) enableWeb3
 
-    if (chainId != '0x89') {
+    if (chainId != '0x13881') {
       setWrongNetwork(true)
     } else setWrongNetwork(false)
   }, [])
@@ -97,7 +97,7 @@ export default function Header() {
 
   async function networkChange() {
     // Moralis.authenticate()
-    await switchNetwork('0x89').then(() => {
+    await switchNetwork('0x13881').then(() => {
       setWrongNetwork(false)
     })
   }
@@ -111,7 +111,7 @@ export default function Header() {
       {/* <Image /> */}
 
       {/* NAV BAR */}
-      <nav className="flex w-8/24 flex-row items-center justify-evenly rounded-full bg-[#5653E2] p-1.5 text-white sm:w-7/12 lg:w-4/24">
+      <nav className="w-8/24 lg:w-4/24 flex flex-row items-center justify-evenly rounded-full bg-[#5653E2] p-1.5 text-white sm:w-7/12">
         <div
           className={`cursor-pointer rounded-full ${
             router.pathname == '/' ? 'bg-[#827FE5]' : ''
