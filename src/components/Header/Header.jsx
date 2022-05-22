@@ -175,7 +175,7 @@ export default function Header() {
                 } text-xs`}
                 onClick={networkChange}
               >
-                {!wrongNetwork ? 'Switch Network!' : ' 6,222.67 MIRA'}
+                {wrongNetwork ? 'Switch Network!' : ' 6,222.67 MIRA'}
               </div>
               <div className="text-[#827FE5] ">
                 <LogoutIcon
