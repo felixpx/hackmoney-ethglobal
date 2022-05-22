@@ -197,7 +197,7 @@ export default function Header() {
               className="m-1 flex flex-row items-center justify-center space-x-2 text-xs"
               onClick={login}
             >
-              <p>Connect Wallet</p>
+              <p>Connect</p>
             </div>
           )}
         </div>
