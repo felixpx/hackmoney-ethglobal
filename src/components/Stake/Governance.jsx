@@ -14,7 +14,9 @@ export default function Deposit() {
       <div className="mt-6 flex w-full flex-row items-center justify-evenly">
         <div
           className="w-56 cursor-pointer rounded-full  bg-gradient-to-r from-[#5653E2] via-[#D77968] to-[#D86972] p-1.5 px-2 text-sm font-medium tracking-wide text-white"
-          onClick={() => window.open('https://www.google.com')}
+          onClick={() =>
+            window.open('https://rb2fbfeizgr.typeform.com/to/n1oHhjP1')
+          }
         >
           <div className="m-1 flex flex-row items-center justify-center space-x-2 text-xs">
             <p>Participate</p>
