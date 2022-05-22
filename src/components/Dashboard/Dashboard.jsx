@@ -6,7 +6,7 @@ import Dashcard2Button from './Dashcard2Button'
 
 export default function Dashboard() {
   return (
-    <div className="flex w-11/12 flex-col items-center justify-center space-y-4 xl:w-9/12">
+    <div className="mt-8 flex w-11/12 flex-col items-center justify-center space-y-4 xl:w-9/12">
       <p className="bg-gradient-to-r from-[#5653E2] via-[#D77968] to-[#D86972] bg-clip-text text-2xl font-semibold tracking-wide text-transparent ">
         Statistics
       </p>
