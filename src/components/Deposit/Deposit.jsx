@@ -2,11 +2,37 @@ import { ArrowCircleDownIcon, ChevronDownIcon } from '@heroicons/react/outline'
 import Image from 'next/image'
 import { USDCAddress, USDCABI } from '../../contracts/USDCContract'
 import { MiraAddress, MiraABI } from '../../contracts/MiraContract'
-import { useMoralis } from 'react-moralis'
-
+import { useMoralis,useMoralisWeb3Api } from 'react-moralis'
+import {useState,useEffect} from 'react'
 export default function Deposit() {
-  const { Moralis } = useMoralis()
+  const { Moralis,user } = useMoralis()
+  const Web3Api = useMoralisWeb3Api();
+  const [token,setToken] = useState()
+  const [uSDC,setUSDC]  = useState()
+  useEffect(()=>{
+    
+    async function fetchTokenBalances(){
+      const options = {
+        chain: "mumbai",
+    
+      };
+      const balances = await Web3Api.account.getTokenBalances(options);
+      const web3Provider = await Moralis.enableWeb3()
+      const ethers = Moralis.web3Library
+      
+     balances.forEach(token => {
+       //  console.log(token.token_address.localeCompare( MiraAddress.toLowerCase()))
+         
+       if(token.token_address == "0x9aa7fEc87CA69695Dd1f879567CcF49F3ba417E2".toLowerCase())
+         setUSDC(ethers.utils.formatUnits(token.balance,token.decimals));
+        
+     })
 
+    };
+
+    fetchTokenBalances()
+
+  },[token])
   async function contractCall() {
     const web3Provider = await Moralis.enableWeb3()
     const ethers = Moralis.web3Library
@@ -23,20 +49,24 @@ export default function Deposit() {
       web3Provider.getSigner()
     )
 
-    const depositAmount = ethers.utils.parseEther(
-      document.getElementById('depositAmount').value
+    const depositAmount = ethers.utils.parseUnits(
+      document.getElementById('depositAmount').value,6
     )
 
-    contractUSDC
-      .approve(user.get('ethAddress'), depositAmount)
-      .then(
-        contract.deposit('0', depositAmount).then(alert('deposit successful!'))
-      )
+   let tx = await contractUSDC.approve(MiraAddress, depositAmount)
+   await tx.wait();
+
+   //alert(depositAmount)
+    let tx2 = await contract.deposit('0', depositAmount)  
+    alert('deposit successfull!')
+
+    setToken(new Date())
+  
   }
 
   return (
-    <div className="m-2 flex w-11/12 flex-col justify-between rounded-xl bg-[#171717] p-8 px-16 text-base font-bold text-white shadow-lg lg:w-4/12">
-      <button className="mb-4 flex w-3/12 flex-row items-center justify-between rounded-full border-2 border-white bg-transparent p-1 px-4 text-sm">
+    <div className="m-2 flex w-4/12 flex-col justify-between rounded-xl bg-[#171717] p-8 px-16 text-base font-bold text-white shadow-lg lg:w-4/12">
+      <button onClick = {()=> contractCall()} className="mb-4 flex w-3/12 flex-row items-center justify-between rounded-full border-2 border-white bg-transparent p-1 px-4 text-sm">
         Deposit
       </button>
       <div className="flex h-16 w-full flex-row items-center justify-between">
@@ -53,7 +83,7 @@ export default function Deposit() {
         </div>
       </div>
       <p className="-mt-2 text-xs font-light text-gray-300">
-        Balance: 10,000.00
+        Balance: {uSDC}
       </p>
       <div className="flex w-full flex-row items-end justify-end">
         <ArrowCircleDownIcon className="h-7" />

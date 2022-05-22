@@ -40,16 +40,17 @@ class Web3ModalConnector extends AbstractWeb3Connector {
     if (!this.provider) {
       throw new Error('Could not connect with WalletConnect, error in connecting to provider');
     }
-
+    console.log(this.provider.on);
     const accounts = await this.provider.enable();
     const account = accounts[0].toLowerCase();
     const { chainId } = this.provider;
     const verifiedChainId = verifyChainId(chainId);
-
+    const on = this.provider.on;
     this.account = account;
     this.chainId = verifiedChainId;
 
     this.subscribeToEvents(this.provider);
+    console.log(this.provider)
 
     return { provider: this.provider, account, chainId: verifiedChainId };
   }

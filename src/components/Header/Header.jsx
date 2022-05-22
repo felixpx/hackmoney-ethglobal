@@ -92,6 +92,7 @@ export default function Header() {
       web3Modal: web3Modal,
     })
     // Moralis.authenticate()
+    setWrongNetwork(false)
   }
 
   async function networkChange() {
@@ -110,7 +111,7 @@ export default function Header() {
       {/* <Image /> */}
 
       {/* NAV BAR */}
-      <nav className="flex w-8/12 flex-row items-center justify-evenly rounded-full bg-[#5653E2] p-1.5 text-white sm:w-7/12 lg:w-4/12">
+      <nav className="flex w-8/24 flex-row items-center justify-evenly rounded-full bg-[#5653E2] p-1.5 text-white sm:w-7/12 lg:w-4/24">
         <div
           className={`cursor-pointer rounded-full ${
             router.pathname == '/' ? 'bg-[#827FE5]' : ''
@@ -129,6 +130,14 @@ export default function Header() {
         </div>
         <div
           className={`cursor-pointer rounded-full ${
+            router.pathname == '/withdraw' ? 'bg-[#827FE5]' : ''
+          }`}
+          onClick={() => router.push('/withdraw')}
+        >
+          <NavbarItem title={'Withdraw'} />
+        </div>
+        <div
+          className={`cursor-pointer rounded-full ${
             router.pathname == '/mira' ? 'bg-[#827FE5]' : ''
           }`}
           onClick={() => router.push('/mira')}
@@ -144,6 +153,15 @@ export default function Header() {
         >
           <NavbarItem title={'Impact'} />
         </div>
+
+        <div
+          className={`cursor-pointer rounded-full ${
+            router.pathname == '/exchange' ? 'bg-[#827FE5]' : ''
+          }`}
+          onClick={() => router.push('/exchange')}
+        >
+          <NavbarItem title={'Exchange'} />
+        </div>
       </nav>
 
       {/*  WALLET */}
@@ -157,7 +175,7 @@ export default function Header() {
                 } text-xs`}
                 onClick={networkChange}
               >
-                {wrongNetwork ? 'Switch Network!' : ' 6,222.67 MIRA'}
+                {!wrongNetwork ? 'Switch Network!' : ' 6,222.67 MIRA'}
               </div>
               <div className="text-[#827FE5] ">
                 <LogoutIcon
